@@ -43,9 +43,10 @@ public class GameState extends Packet{
     }
         this.currentPlayer = buffer.getInt(offset);
     offset += 5;
-    byte[] actionMessageBytes = new byte[totalLength - offset - 1];
-        buffer.get(actionMessageBytes, 0, actionMessageBytes.length);
-        this.actionMessage = new String(actionMessageBytes);
+    byte[] actionMessageBytes = new byte[totalLength - offset];
+    buffer.position(offset);
+    buffer.get(actionMessageBytes, 0, actionMessageBytes.length);
+    this.actionMessage = new String(actionMessageBytes);
 }
 
     @Override

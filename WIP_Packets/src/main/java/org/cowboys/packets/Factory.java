@@ -45,7 +45,6 @@ public class Factory {
             buffer.putInt(currentPlayer);
             buffer.put((byte) 0);
             buffer.put(actionMessageBytes);
-            buffer.put((byte) 0);
             buffer.flip();
             return buffer;
         }
