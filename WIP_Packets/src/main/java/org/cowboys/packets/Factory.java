@@ -1,6 +1,7 @@
 package org.cowboys.packets;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class Factory {
 
@@ -27,7 +28,7 @@ public class Factory {
             // Build byte buffer stream
             byte[] actionMessageBytes = actionMessage.getBytes();
             int messageLength = actionMessageBytes.length;
-            ByteBuffer buffer = ByteBuffer.allocate(62 + messageLength); // Total length of packet is 41 bytes
+            ByteBuffer buffer = ByteBuffer.allocate(62 + messageLength); // Total length of packet is 62 bytes
             buffer.put((byte) 0x09);
             buffer.putInt(bossHealth);
             buffer.put((byte) 0);

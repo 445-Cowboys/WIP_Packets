@@ -1,6 +1,7 @@
 package org.cowboys.packets;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class GameState extends Packet{
 
@@ -25,6 +26,7 @@ public class GameState extends Packet{
     int totalLength = buffer.limit();
         this.data = new byte[totalLength];
         buffer.get(data, 0, data.length);
+        buffer.rewind();
         this.bossHealth = buffer.getInt(1);
         this.bossAmmo = buffer.getInt(6);
         this.playerHealth = new int[3];
@@ -41,7 +43,6 @@ public class GameState extends Packet{
     }
         this.currentPlayer = buffer.getInt(offset);
     offset += 5;
-    System.out.println(offset + " " + totalLength);
     byte[] actionMessageBytes = new byte[totalLength - offset - 1];
         buffer.get(actionMessageBytes, 0, actionMessageBytes.length);
         this.actionMessage = new String(actionMessageBytes);
@@ -60,15 +61,18 @@ public class GameState extends Packet{
         return bossAmmo;
     }
 
-    public int[] getPlayerHealth() {
-        return playerHealth;
+    public int getPlayerHealth(int player) {
+        player--;
+        return playerHealth[player];
     }
 
-    public int[] getPlayerAmmo() {
+    public int[] getPlayerAmmo(int player) {
+        player--;
         return playerAmmo;
     }
 
-    public int[] getPlayerAbilityCD() {
+    public int[] getPlayerAbilityCD(int player) {
+        player--;
         return playerAbilityCD;
     }
 

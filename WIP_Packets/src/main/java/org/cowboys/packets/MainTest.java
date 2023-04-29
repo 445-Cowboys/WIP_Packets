@@ -15,11 +15,12 @@ public class MainTest {
         //playerAbilityCD, 1, "This is a test");
 
         GameState gamestate = new GameState(factory.makeGameStatePacket(10, 6, playerHealth, playerAmmo,
-                playerAbilityCD, 1, "This is a test number 2"));
+                playerAbilityCD, 1, "This is a test"));
 
-        gamestate.getBossHealth();
-        gamestate.getBossAmmo();
-        gamestate.getPlayerHealth();
-        gamestate.getActionMessage();
+        System.out.println(gamestate.getBossHealth());
+        System.out.println(gamestate.getBossAmmo());
+        System.out.println(gamestate.getPlayerHealth(1));
+        System.out.println(gamestate.getCurrentPlayer());
+        System.out.println(gamestate.getActionMessage());
     }
 }
