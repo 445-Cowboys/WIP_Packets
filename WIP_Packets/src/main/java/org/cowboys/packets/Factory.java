@@ -23,12 +23,13 @@ public class Factory {
     }
 
         public ByteBuffer makeGameStatePacket(int bossHealth, int bossAmmo, int[] playerHealth, int[] playerAmmo,
-        int[] playerAbilityCD, int currentPlayer, String actionMessage) {
+        int[] playerAbilityCD, int currentPlayer, int blockNumber, String actionMessage) {
 
             // Build byte buffer stream
             byte[] actionMessageBytes = actionMessage.getBytes();
             int messageLength = actionMessageBytes.length;
-            ByteBuffer buffer = ByteBuffer.allocate(62 + messageLength); // Total length of packet is 62 bytes
+            ByteBuffer buffer = ByteBuffer.allocate(67 + messageLength); // Total length of packet is 62 bytes
+
             buffer.put((byte) 0x09);
             buffer.putInt(bossHealth);
             buffer.put((byte) 0);
@@ -44,9 +45,40 @@ public class Factory {
             }
             buffer.putInt(currentPlayer);
             buffer.put((byte) 0);
+            buffer.putInt(blockNumber);
+            buffer.put((byte) 0);
             buffer.put(actionMessageBytes);
             buffer.flip();
             return buffer;
         }
+
+        public ByteBuffer makePlayerActionPacket(int gameRoom, int action, int heal){
+            ByteBuffer buffer = ByteBuffer.allocate(15); // Total length of packet is 15 bytes
+
+            buffer.put((byte) 0x08);
+            buffer.putInt(gameRoom);
+            buffer.put((byte) 0);
+            buffer.putInt(action);
+            buffer.put((byte) 0);
+            buffer.putInt(heal);
+            buffer.flip();
+            return buffer;
+        }
+
+        public ByteBuffer makeEnterRoomPacket(int gameRoom, String userName){
+            byte[] userNameBytes = userName.getBytes();
+            int messageLength = userNameBytes.length;
+            ByteBuffer buffer = ByteBuffer.allocate(6 + messageLength); // Total length of packet is 6 byte + username
+
+            buffer.put((byte) 0x07);
+            buffer.putInt(gameRoom);
+            buffer.put((byte) 0);
+            buffer.put(userNameBytes);
+
+            buffer.flip();
+            return buffer;
+        }
+
+
 
     }

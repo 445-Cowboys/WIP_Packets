@@ -2,11 +2,11 @@ package org.cowboys.packets;
 
 import java.nio.ByteBuffer;
 
-public class PlayerAction {
+public class PlayerAction extends Packet{
 
     /*
 
-    02 <Game room number> | <Action type> | <player you heal if action is type 3 and your attribute is a healer>
+    08 <Game room number> 0 <Action type> 0 <player you heal if action is type 3 and your attribute is a healer>
 
     */
 
@@ -30,6 +30,21 @@ public class PlayerAction {
             this.heal = buffer.getInt(11);
     }
 
-    
+    @Override
+    public int getOpcode(){
+        return 8;
+    }
+
+    public int getGameRoom(){
+        return gameRoom;
+    }
+
+    public int getAction(){
+        return action;
+    }
+
+    public int getHeal(){
+        return heal;
+    }
 
 }
