@@ -1,7 +1,6 @@
 package org.cowboys.packets;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 public class Factory {
 
@@ -31,6 +30,7 @@ public class Factory {
             ByteBuffer buffer = ByteBuffer.allocate(67 + messageLength); // Total length of packet is 62 bytes
 
             buffer.put((byte) 0x09);
+
             buffer.putInt(bossHealth);
             buffer.put((byte) 0);
             buffer.putInt(bossAmmo);
@@ -56,6 +56,7 @@ public class Factory {
             ByteBuffer buffer = ByteBuffer.allocate(15); // Total length of packet is 15 bytes
 
             buffer.put((byte) 0x08);
+
             buffer.putInt(gameRoom);
             buffer.put((byte) 0);
             buffer.putInt(action);
@@ -78,6 +79,38 @@ public class Factory {
             buffer.flip();
             return buffer;
         }
+
+        public ByteBuffer makeEnterRoomAckPacket(boolean result){
+            ByteBuffer buffer = ByteBuffer.allocate(3);
+
+            buffer.put((byte) 0x06);
+            buffer.put((byte) 0);
+            buffer.put((byte) (result ? 0x01 : 0x00));
+
+            buffer.flip();
+            return buffer;
+        }
+
+        public ByteBuffer makeGameRooms(int[] numPlayers, boolean[] roomFull, int[] roomStatus, int[] serverStatus){
+            ByteBuffer buffer = ByteBuffer.allocate(43); // Total length of packet is 42 bytes
+
+            buffer.put((byte) 0x05);
+
+            for (int i = 0; i < 3; i++) {
+                buffer.putInt(numPlayers[i]);
+                buffer.put((byte) (roomFull[i] ? 0x01 : 0x00));
+                buffer.putInt(roomStatus[i]);
+                buffer.put((byte) 0);
+            }
+            for (int i = 0; i < 3; i++) {
+                buffer.putInt(serverStatus[i]);
+            }
+
+            buffer.flip();
+            return buffer;
+        }
+
+
 
 
 

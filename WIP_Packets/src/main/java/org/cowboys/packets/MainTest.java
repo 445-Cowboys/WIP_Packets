@@ -6,8 +6,33 @@ public class MainTest {
 
     public static void main(String args[]){
 
+        /********************************
+         * Test Game Rooms packet
+         *
 
+        ByteBuffer trueBuf = new Factory().makeEnterRoomAckPacket(true);
+        ByteBuffer falseBuf = new Factory().makeEnterRoomAckPacket(false);
 
+        EnterRoomAck eraTrue = new EnterRoomAck(trueBuf);
+        EnterRoomAck eraFalse = new EnterRoomAck(falseBuf);
+
+        System.out.println(eraTrue.getOpcode());
+        System.out.println(eraTrue.getResult());
+        System.out.println(eraFalse.getResult());
+        */
+
+        /********************************
+         * Test Game Rooms packet
+         *
+        ByteBuffer buf = new Factory().makeGameRooms(new int[]{1,1,1},new boolean[]{true,true,false},new int[]{2,2,2},new int[]{3,3,3});
+        GameRooms gr = new GameRooms(buf);
+        System.out.println(gr.getOpcode());
+        for (int i = 0; i < 3; i++) {
+            System.out.println(gr.getNumPlayers(i));
+            System.out.println(gr.getRoomFull(i));
+            System.out.println(gr.getRoomStatus(i));
+            System.out.println(gr.getServerStatus(i));
+        }*/
 
         /********************************
          * Test Enter Room packet
