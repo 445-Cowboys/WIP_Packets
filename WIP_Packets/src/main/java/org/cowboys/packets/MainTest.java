@@ -1,11 +1,30 @@
 package org.cowboys.packets;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.nio.ByteBuffer;
+import java.security.NoSuchAlgorithmException;
 
 public class MainTest {
 
     public static void main(String args[]){
 
+
+        try {
+            SecretKey symmetricKey = generateSymmetricKey();
+            //System.out.println(symmetricKey.getEncoded());
+
+            ByteBuffer gsPack = new Factory().makeGameStartPacket(1, symmetricKey);
+            GameStart gs = new GameStart(gsPack);
+
+            System.out.println(gs.getOpcode());
+            System.out.println(gs.getCharacter());
+            SecretKey symmetricKeyReturn = gs.getSymmetricKey();
+            System.out.println(symmetricKeyReturn.equals(symmetricKey));
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         /********************************
          * Test Game Rooms packet
          *
@@ -82,4 +101,17 @@ public class MainTest {
 
     }
 
+
+    public static SecretKey generateSymmetricKey() throws NoSuchAlgorithmException {
+        // Get an instance of the key generator for AES
+        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+
+        // Generate a 256-bit key
+        keyGen.init(256);
+
+        // Generate the symmetric key
+        SecretKey symmetricKey = keyGen.generateKey();
+
+        return symmetricKey;
+    }
 }

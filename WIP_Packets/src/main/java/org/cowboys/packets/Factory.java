@@ -1,5 +1,6 @@
 package org.cowboys.packets;
 
+import javax.crypto.SecretKey;
 import java.nio.ByteBuffer;
 
 public class Factory {
@@ -111,6 +112,19 @@ public class Factory {
         }
 
 
+        public ByteBuffer makeGameStartPacket(int character, SecretKey symmetricKey){
+            byte[] symmetricKeyBytes = symmetricKey.getEncoded();
+            ByteBuffer buffer = ByteBuffer.allocate(7 + symmetricKeyBytes.length);
+
+            buffer.put((byte) 0x04);
+            buffer.put((byte) 0);
+            buffer.putInt(character);
+            buffer.put((byte) 0);
+            buffer.put(symmetricKeyBytes);
+
+            buffer.flip();
+            return buffer;
+        }
 
 
 
