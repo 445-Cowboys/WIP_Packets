@@ -9,7 +9,15 @@ public class MainTest {
 
     public static void main(String args[]){
 
+        ByteBuffer hb = new Factory().makeHeartbeatAckPacket();
+        HeartbeatAck hba = new HeartbeatAck(hb);
 
+        hba.getOpcode();
+
+        /********************************
+         * Test Game Start packet
+         *
+         *
         try {
             SecretKey symmetricKey = generateSymmetricKey();
             //System.out.println(symmetricKey.getEncoded());
@@ -25,6 +33,7 @@ public class MainTest {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+         */
         /********************************
          * Test Game Rooms packet
          *
