@@ -67,13 +67,15 @@ public class Factory {
             return buffer;
         }
 
-        public ByteBuffer makeEnterRoomPacket(int gameRoom, String userName){
+        public ByteBuffer makeEnterRoomPacket(int gameRoom, int port,String userName){
             byte[] userNameBytes = userName.getBytes();
             int messageLength = userNameBytes.length;
-            ByteBuffer buffer = ByteBuffer.allocate(6 + messageLength); // Total length of packet is 6 byte + username
+            ByteBuffer buffer = ByteBuffer.allocate(11 + messageLength); // Total length of packet is 6 byte + username
 
             buffer.put((byte) 0x07);
             buffer.putInt(gameRoom);
+            buffer.put((byte) 0);
+            buffer.putInt(port);
             buffer.put((byte) 0);
             buffer.put(userNameBytes);
 
