@@ -23,6 +23,6 @@ public class HeartbeatAck extends Packet {
 
     @Override
     public int getOpcode(){
-        return opcode;
+        return -1;
     }
 }

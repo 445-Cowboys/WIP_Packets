@@ -131,7 +131,7 @@ public class Factory {
         public ByteBuffer makeHeartbeatAckPacket(){
             ByteBuffer buffer = ByteBuffer.allocate(1);
 
-            buffer.put((byte) 0x0c);
+            buffer.put((byte) -1);
 
             buffer.flip();
             return buffer;
