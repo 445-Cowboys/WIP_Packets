@@ -53,7 +53,7 @@ public class Factory {
             return buffer;
         }
 
-        public ByteBuffer makePlayerActionPacket(int gameRoom, int action, int heal){
+        public ByteBuffer makePlayerActionPacket(int gameRoom, int action, int playerNum){
             ByteBuffer buffer = ByteBuffer.allocate(15); // Total length of packet is 15 bytes
 
             buffer.put((byte) 0x08);
@@ -62,7 +62,7 @@ public class Factory {
             buffer.put((byte) 0);
             buffer.putInt(action);
             buffer.put((byte) 0);
-            buffer.putInt(heal);
+            buffer.putInt(playerNum);
             buffer.flip();
             return buffer;
         }

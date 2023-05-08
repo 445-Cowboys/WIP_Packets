@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 public class GameStart extends Packet {
 
     /*
-    04 |0| <Player Character> |0| <Symmetric Key info>|
+    <opcode = 04> 0 <character num> 0 <boss num> 0 <aead key>
     */
 
     private final byte[] data;
