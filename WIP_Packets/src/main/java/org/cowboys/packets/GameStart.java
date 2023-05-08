@@ -21,7 +21,7 @@ public class GameStart extends Packet {
 
     public GameStart(ByteBuffer buffer){
 
-        AEAD aead = new AEAD;
+        //AEAD aead = new AEAD;
 
         //This code readies the bytebuffer data to be read
         int totalLength = buffer.limit();
