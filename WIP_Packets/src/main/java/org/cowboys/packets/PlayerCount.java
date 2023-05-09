@@ -2,7 +2,7 @@ package org.cowboys.packets;
 
 import java.nio.ByteBuffer;
 
-public class PlayerCount {
+public class PlayerCount extends Packet{
     private int playerCount;
 
     public PlayerCount(ByteBuffer buf){
@@ -11,5 +11,10 @@ public class PlayerCount {
 
     public int getPlayerCount() {
         return playerCount;
+    }
+
+    @Override
+    public int getOpcode() {
+        return 10;
     }
 }

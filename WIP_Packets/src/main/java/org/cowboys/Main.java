@@ -6,8 +6,9 @@ import java.nio.ByteBuffer;
 
 public class Main {
     public static void main(String[] args) {
-        ByteBuffer buf = new Factory().makeEnterRoomPacket(5, 1231223);
-        EnterRoom er = new EnterRoom(buf);
-        System.out.println(er.getRoomNum() + " " + er.getPortNum());
+        long x = System.nanoTime();
+        ByteBuffer buf = new Factory().makeGameRoomsUpdate(new int[]{1,2,3}, new boolean[]{false,true,true}, new int[]{0,1,2}, new int[]{0,1,1}, x);
+        GameRoomsUpdate er = new GameRoomsUpdate(buf);
+        System.out.println(er);
     }
 }

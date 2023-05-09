@@ -109,6 +109,28 @@ public class Factory {
         return buffer;
     }
 
+    public ByteBuffer makeGameRoomsUpdate(int[] numPlayers, boolean[] roomFull, int[] roomStatus, int[] serverStatus, long timeStamp) {
+        ByteBuffer buffer = ByteBuffer.allocate(51); // Total length of packet is 42 bytes
+
+        buffer.put((byte) 0x0B);
+
+        for (int i = 0; i < 3; i++) {
+            buffer.putInt(numPlayers[i]);
+            buffer.put((byte) (roomFull[i] ? 0x01 : 0x00));
+            buffer.putInt(roomStatus[i]);
+            buffer.put((byte) 0);
+        }
+        for (int i = 0; i < 3; i++) {
+            buffer.putInt(serverStatus[i]);
+        }
+
+        buffer.putLong(timeStamp);
+        buffer.flip();
+        return buffer;
+    }
+
+
+
 
     public ByteBuffer makeGameStartPacket(int character, int bossNum, int gameRoom, byte[] symmetricKey) {
         ByteBuffer buffer = ByteBuffer.allocate(17 + symmetricKey.length);
