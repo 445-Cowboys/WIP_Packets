@@ -127,6 +127,16 @@ public class Factory {
         return buffer;
     }
 
+    public ByteBuffer makePlayerCountPacket(int playerCount){
+        ByteBuffer buffer = ByteBuffer.allocate(6);
+        buffer.put((byte) 0x0A);
+        buffer.put((byte) 0);
+        buffer.putInt(playerCount);
+
+        buffer.flip();
+        return buffer;
+    }
+
     public ByteBuffer makeHeartbeatAckPacket() {
         ByteBuffer buffer = ByteBuffer.allocate(1);
 
