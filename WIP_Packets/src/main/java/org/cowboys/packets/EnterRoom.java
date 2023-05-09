@@ -31,7 +31,7 @@ public class EnterRoom extends Packet {
 
     @Override
     public int getOpcode(){
-        return 9;
+        return 3;
     }
 
     public int getRoomNum(){
